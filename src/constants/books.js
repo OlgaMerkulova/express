@@ -24,7 +24,7 @@ class Book {
 
 const store = {
     books: [
-        new Book('title1', 'desc1', 'author1', 'fav1', 'cover1', 'name1', ""),
+        new Book('title1', 'desc1', 'author1', 'fav1', 'cover1', 'name1', "public/books/1688848568108-book.txt"),
         new Book('title2', 'desc2', 'author2', 'fav2', 'cover2', 'name2', ""),
     ],
 };
