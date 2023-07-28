@@ -13,13 +13,6 @@ router.get('/', (req, res) => {
     });
 });
 
-router.get('/create', (req, res) => {
-    res.render("books/create", {
-        title: "Добавить книгу",
-        todo: {},
-    });
-});
-
 router.get('/:id', (req, res) => {
     const {id} = req.params;
     const {books} = store;
@@ -36,6 +29,45 @@ router.get('/:id', (req, res) => {
 });
 
 
+
+router.get('/update/:id', (req, res) => {
+    const {books} = store;
+    const {id} = req.params;
+    const idx = books.findIndex(el => el.id === id);
+
+    if (idx === -1) {
+        res.redirect('/404');
+    } 
+
+    res.render("books/update", {
+        title: "Редактировать книгу",
+        book: books[idx],
+    });
+});
+
+router.post('/update/:id', (req, res) => {
+    const {books} = store;
+    const {id} = req.params;
+    const {title, description, authors, favorite, fileCover, fileName, fileBook} = req.body;
+    const idx = books.findIndex(el => el.id === id);
+
+    if (idx === -1) {
+        res.redirect('/404');
+    } 
+
+    books[idx] = {
+        ...books[idx],
+        title,
+        description,
+        authors,
+        favorite,
+        fileCover,
+        fileName,
+        fileBook
+    }
+
+    res.redirect(`/books/${id}`);
+});
 
 router.post('/delete/:id', (req, res) => {
     const {books} = store;
