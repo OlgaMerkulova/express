@@ -13,6 +13,33 @@ router.get('/', (req, res) => {
     });
 });
 
+router.get('/create', (req, res) => {
+    res.render("books/create", {
+        title: "Создать книгу",
+        book: {}
+    });
+});
+
+router.post('/create', (req, res) => {
+    const {books} = store;
+    
+    const {title, description, authors, favorite, fileCover, fileName, fileBook} = req.body;
+
+    const newBook = new Book(
+        title,
+        description,
+        authors,
+        favorite,
+        fileCover,
+        fileName,
+        fileBook
+    );
+    books.push(newBook);
+
+    res.redirect('/books')
+});
+
+
 router.get('/:id', (req, res) => {
     const {id} = req.params;
     const {books} = store;
